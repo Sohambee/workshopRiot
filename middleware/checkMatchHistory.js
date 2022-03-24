@@ -9,12 +9,10 @@ module.exports = (req, res, next) => {
 
     getSummonerMatches(req.userData.puuid, req.params.region).then((res) => {
         let matches = res.response
-        console.log(matches)
         summonerMatches = []
         for (let i = 0; i < Math.min(matches.length, 10); i++) {
             getSummonerMatch(matches[i], req.params.region).then((res) => {
                 let match = res.response.info
-                console.log(res)
                 let matchData = { participants: [], }
                 match.participants.forEach((item, index) => {
                     let temp = {}
@@ -22,9 +20,9 @@ module.exports = (req, res, next) => {
                     temp.champion = item["championName"]
                     if (item["championName"] == 'MonkeyKing') temp.champion['champion'] = 'Wukong'
                     temp.champUrl = getImage("champion", temp.champion)
+                    temp.team = item["teamId"]
                     matchData.participants.push(temp)
-                    console.log(temp.summoner.toLowerCase() ,req.params.name.toLowerCase())
-                    if (temp.summoner.toLowerCase().replace(" ","") == req.params.name.toLowerCase().replace(" ","")) {
+                    if (temp.summoner.toLowerCase().replace(" ", "") == req.params.name.toLowerCase().replace(" ", "")) {
                         matchData.champion = item["championName"]
                         matchData.win = item["win"]
                         matchData.champUrl = getImage("champion", temp.champion)
@@ -34,6 +32,9 @@ module.exports = (req, res, next) => {
                         matchData.assists = item["assists"]
                         matchData.spellDUrl = getImage("sum", sums[item["summoner1Id"]])
                         matchData.spellDUrl = getImage("sum", sums[item["summoner2Id"]])
+                        for (let ind = 0; ind < 6; ind++) {
+                            matchData[`item${ind}Url`] = getImage({"type":"item", name:item[`item${ind}`]})
+                        }
                     }
                 })
                 summonerMatches.push(matchData)
