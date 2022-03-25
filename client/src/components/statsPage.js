@@ -69,62 +69,42 @@ function StatsPage() {
                             <div>
                                 <div className={styles.items}>
                                     <ul style={{ width: '80px', listStyle: 'none' }}>
-                                        <li className={styles.item}>
-                                            <img style={{ maxWidth: '100%' }} src={!matches[i].item0Url.includes("0.png") ? matches[i].item0Url : ""}></img>
-                                        </li>
-                                        <li className={styles.item}>
-                                            <img style={{ maxWidth: '100%' }} src={!matches[i].item1Url.includes("0.png") ? matches[i].item1Url : ""}></img>
-                                        </li>
-                                        <li className={styles.item}>
-                                            <img style={{ maxWidth: '100%' }} src={!matches[i].item2Url.includes("0.png") ? matches[i].item2Url : ""}></img>
-                                        </li>
-                                        <li className={styles.item}>
-                                            <img style={{ maxWidth: '100%' }} src={!matches[i].item3Url.includes("0.png") ? matches[i].item3Url : ""}></img>
-                                        </li>
-                                        <li className={styles.item}>
-                                            <img style={{ maxWidth: '100%' }} src={!matches[i].item4Url.includes("0.png") ? matches[i].item4Url : ""}></img>
-                                        </li>
-                                        <li className={styles.item}>
-                                            <img style={{ maxWidth: '100%' }} src={!matches[i].item5Url.includes("0.png") ? matches[i].item5Url : ""}></img>
-                                        </li>
+                                        {
+                                            Array.apply(0, Array(6)).map((item, index) => {
+                                                return (
+                                                    <li className={styles.item}>
+                                                        <img style={{ maxWidth: '100%' }} src={!matches[i][`item${index}Url`].includes("0.png") ? matches[i][`item${index}Url`] : ""}></img>
+                                                    </li>
+                                                )
+                                            })
+                                        }
+
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <div className={styles.matchPlayers}>
                             <ul style={{ float: 'left', height: '96px' }}>
-                                <li className={styles.player}>
-                                    <div className={styles.playerName}><span className={styles.nameText}>{matches[i].participants[0]?.summoner}</span></div>
-                                </li>
-                                <li className={styles.player}>
-                                    <div className={styles.playerName}><span className={styles.nameText}>{matches[i].participants[1]?.summoner}</span></div>
-                                </li>
-                                <li className={styles.player}>
-                                    <div className={styles.playerName}><span className={styles.nameText}>{matches[i].participants[2]?.summoner}</span></div>
-                                </li>
-                                <li className={styles.player}>
-                                    <div className={styles.playerName}><span className={styles.nameText}>{matches[i].participants[3]?.summoner}</span></div>
-                                </li>
-                                <li className={styles.player}>
-                                    <div className={styles.playerName}><span className={styles.nameText}>{matches[i].participants[4]?.summoner}</span></div>
-                                </li>
+                                {
+                                    Array.apply(0, Array(5)).map((item, index) => {
+                                        return (
+                                            <li className={styles.player}>
+                                                <a href={`/statsPage/${matches[i].participants[index]?.summoner}`} onClick={() => {window.location.reload()}}><div className={styles.playerName}><span className={styles.nameText}>{matches[i].participants[index]?.summoner}</span></div></a>
+                                            </li>
+                                        )
+                                    })
+                                }
                             </ul>
                             <ul style={{ float: 'left', height: '96px' }}>
-                                <li className={styles.player}>
-                                    <div className={styles.playerName}><span className={styles.nameText}>{matches[i].participants[5]?.summoner}</span></div>
-                                </li>
-                                <li className={styles.player}>
-                                    <div className={styles.playerName}><span className={styles.nameText}>{matches[i].participants[6]?.summoner}</span></div>
-                                </li>
-                                <li className={styles.player}>
-                                    <div className={styles.playerName}><span className={styles.nameText}>{matches[i].participants[7]?.summoner}</span></div>
-                                </li>
-                                <li className={styles.player}>
-                                    <div className={styles.playerName}><span className={styles.nameText}>{matches[i].participants[8]?.summoner}</span></div>
-                                </li>
-                                <li className={styles.player}>
-                                    <div className={styles.playerName}><span className={styles.nameText}>{matches[i].participants[9]?.summoner}</span></div>
-                                </li>
+                                {
+                                    Array.apply(0, Array(5)).map((item, index) => {
+                                        return (
+                                            <li className={styles.player}>
+                                                <a href={`/statsPage/${matches[i].participants[index + 5]?.summoner}`} onClick={() => {window.location.reload()}}><div className={styles.playerName}><span className={styles.nameText}>{matches[i].participants[index + 5]?.summoner}</span></div></a>
+                                            </li>
+                                        )
+                                    })
+                                }
                             </ul>
                         </div>
                     </div>
